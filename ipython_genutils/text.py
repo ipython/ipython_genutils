@@ -14,8 +14,6 @@ import sys
 import textwrap
 from string import Formatter
 
-from IPython.utils import py3compat
-
 # datetime.strftime date format for ipython
 if sys.platform == 'win32':
     date_format = "%B %d, %Y"
@@ -133,7 +131,7 @@ def strip_ansi(source):
 
 def _chunks(l, n):
     """Yield successive n-sized chunks from l."""
-    for i in py3compat.xrange(0, len(l), n):
+    for i in range(0, len(l), n):
         yield l[i:i+n]
 
 
