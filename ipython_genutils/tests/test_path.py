@@ -10,7 +10,7 @@ import tempfile
 
 import nose.tools as nt
 
-from IPython.testing.decorators import skip_if_not_win32, skip_win32
+from ..testing.decorators import skip_if_not_win32, skip_win32
 from .. import path
 from .. import py3compat
 from ..tempdir import TemporaryDirectory
