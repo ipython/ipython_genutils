@@ -1,0 +1,14 @@
+language: python
+python:
+    - 3.4
+    - 3.3
+    - 2.7
+sudo: false
+env:
+install:
+    - pip install -e . coveralls
+script:
+    - nosetests --with-coverage ipython_genutils
+
+after_success:
+    - coveralls
