@@ -8,7 +8,7 @@ env:
 install:
     - pip install -e . coveralls
 script:
-    - nosetests --with-coverage ipython_genutils
+    - nosetests --with-coverage --cover-package=ipython_genutils ipython_genutils
 
 after_success:
     - coveralls
