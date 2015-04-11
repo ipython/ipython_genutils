@@ -32,9 +32,11 @@ def cast_bytes(s, encoding=None):
     return s
 
 def buffer_to_bytes(buf):
-    """Cast a buffer object to bytes"""
+    """Cast a buffer or memoryview object to bytes"""
+    if isinstance(buf, memoryview):
+        return buf.tobytes()
     if not isinstance(buf, bytes):
-        buf = bytes(buf)
+        return bytes(buf)
     return buf
 
 def _modify_str_or_docstring(str_change_func):
