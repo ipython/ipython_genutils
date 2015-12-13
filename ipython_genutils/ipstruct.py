@@ -9,8 +9,12 @@ Can probably be replaced by types.SimpleNamespace from Python 3.3
 
 __all__ = ['Struct']
 
+import collections
 
-class Struct(dict):
+# DictCls = dict  # (ipython_genutils <= v0.1.0)
+DictCls = collections.OrderedDict
+
+class Struct(DictCls):
     """A dict subclass with attribute style access.
 
     This dict subclass has a a few extra features:
@@ -46,7 +50,7 @@ class Struct(dict):
         ['a', 'b', 'c']
         """
         object.__setattr__(self, '_allownew', True)
-        dict.__init__(self, *args, **kw)
+        DictCls.__init__(self, *args, **kw)
 
     def __setitem__(self, key, value):
         """Set an item with check for allownew.
@@ -70,7 +74,7 @@ class Struct(dict):
         if not self._allownew and key not in self:
             raise KeyError(
                 "can't create new attribute %s when allow_new_attr(False)" % key)
-        dict.__setitem__(self, key, value)
+        DictCls.__setitem__(self, key, value)
 
     def __setattr__(self, key, value):
         """Set an attr with protection of class members.
@@ -108,7 +112,7 @@ class Struct(dict):
             raise AttributeError(e)
 
     def __getattr__(self, key):
-        """Get an attr by calling :meth:`dict.__getitem__`.
+        """Get an attr by calling :meth:`DictCls.__getitem__`.
 
         Like :meth:`__setattr__`, this method converts :exc:`KeyError` to
         :exc:`AttributeError`.
@@ -227,7 +231,7 @@ class Struct(dict):
         >>> type(s2) is Struct
         True
         """
-        return Struct(dict.copy(self))
+        return Struct(DictCls.copy(self))
 
     def hasattr(self, key):
         """hasattr function available as a method.
@@ -353,7 +357,7 @@ class Struct(dict):
         add_s    = lambda old,new: old + ' ' + new
 
         # default policy is to keep current keys when there's a conflict
-        conflict_solve = dict.fromkeys(self, preserve)
+        conflict_solve = DictCls.fromkeys(self, preserve)
 
         # the conflict_solve dictionary is given by the user 'inverted': we
         # need a name-function mapping, it comes as a function -> names
