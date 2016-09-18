@@ -1,5 +1,6 @@
 language: python
 python:
+    - "nightly"
     - 3.4
     - 3.3
     - 2.7
@@ -12,3 +13,6 @@ script:
 
 after_success:
     - coveralls
+matrix:
+    allow_failures:
+        - python: "nightly"
