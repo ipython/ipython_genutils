@@ -28,7 +28,7 @@ def import_item(name):
     if len(parts) == 2:
         # called with 'foo.bar....'
         package, obj = parts
-        module = __import__(package, fromlist=[obj])
+        module = __import__(package, fromlist=[str(obj)])
         try:
             pak = getattr(module, obj)
         except AttributeError:
