@@ -47,17 +47,17 @@ class TestLinkOrCopy(object):
         return os.path.join(self.tempdir.name, *args)
 
     def assert_inode_not_equal(self, a, b):
-        nt.assert_not_equals(os.stat(a).st_ino, os.stat(b).st_ino,
+        nt.assert_not_equal(os.stat(a).st_ino, os.stat(b).st_ino,
                              "%r and %r do reference the same indoes" %(a, b))
 
     def assert_inode_equal(self, a, b):
-        nt.assert_equals(os.stat(a).st_ino, os.stat(b).st_ino,
+        nt.assert_equal(os.stat(a).st_ino, os.stat(b).st_ino,
                          "%r and %r do not reference the same indoes" %(a, b))
 
     def assert_content_equal(self, a, b):
         with open(a) as a_f:
             with open(b) as b_f:
-                nt.assert_equals(a_f.read(), b_f.read())
+                nt.assert_equal(a_f.read(), b_f.read())
 
     @skip_win32
     def test_link_successful(self):
